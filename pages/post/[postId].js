@@ -1,7 +1,7 @@
-import ReadersNav from "../../components/article/ReadersNav"
+import Article from "../../layout/Article"
 
 export default function () {
   return (
-    <ReadersNav></ReadersNav>
+    <Article></Article>
   )
 }
