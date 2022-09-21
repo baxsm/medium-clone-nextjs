@@ -1,5 +1,6 @@
 import ReadersNav from '../components/article/ReadersNav'
 import Recommendations from '../components/article/Recommendations'
+import ArticleMain from '../components/article/ArticleMain'
 
 export default function Article() {
     const styles = {
@@ -9,7 +10,7 @@ export default function Article() {
     return (
         <div className={styles.content}>
             <ReadersNav></ReadersNav>
-            <div>Article MAIN</div>
+            <ArticleMain></ArticleMain>
             <Recommendations></Recommendations>
         </div>
     )

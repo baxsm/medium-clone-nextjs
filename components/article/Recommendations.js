@@ -78,7 +78,6 @@ export default function Recommendations() {
                                 <div className={styles.recommendationsTitle}>
                                     The ultimate couse for javascript
                                 </div>
-                            
                         </div>
                     </div>
                     <div className={styles.recommendationsThumbnailContainer}>
