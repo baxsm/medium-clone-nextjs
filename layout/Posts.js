@@ -1,5 +1,8 @@
 import PostCard from '../components/PostCard'
 
+import { MediumContext } from '../context/MediumContext'
+import { useContext } from 'react'
+
 export default function Posts() {
 
     const styles = {
@@ -8,14 +11,15 @@ export default function Posts() {
         main: 'flex justify-center'
     }
 
+    const { posts } = useContext(MediumContext)
+
     return (
         <div className={styles.main}>
             <div className={styles.container}>
                 <div className={styles.postsList}>
-                    <PostCard></PostCard>
-                    <PostCard></PostCard>
-                    <PostCard></PostCard>
-                    <PostCard></PostCard>
+                    {posts.map(post => (
+                        <PostCard post={post} key={post.id}></PostCard>
+                    ))}
                 </div>
             </div>
         </div>

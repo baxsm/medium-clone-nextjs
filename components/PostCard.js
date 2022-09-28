@@ -4,6 +4,9 @@ import logo from "../static/images/logo.png"
 import { FiBookmark } from "react-icons/fi"
 
 import Link from "next/link"
+import { useEffect, useState } from "react"
+import { getDoc, doc } from "firebase/firestore"
+import { db } from '../firebase'
 
 const styles = {
     authorContainer: 'flex gap-[0.4rem]',
@@ -18,11 +21,24 @@ const styles = {
     bookmarkContainer: 'cursor-pointer',
     wrapper: 'flex max-w-[46rem] h-[10rem] items-center gap-[1rem] cursor-pointer',
     postDetails: 'flex-[2.5] flex flex-col',
+    thumbnailContainer: 'flex-1',
 }
 
-export default function PostCard() {
+export default function PostCard({ post }) {
+
+    const [authorData, setAuthorData] = useState(null)
+
+    useEffect(() => {
+        const getAuthorData = async () => {
+            setAuthorData(
+                await getDoc(doc(db, 'users', post.data.author))
+            )
+        }
+        getAuthorData()
+    }, [post])
+
     return (
-        <Link href={'/post/123'}>
+        <Link href={`/post/${post.id}`}>
             <div className={styles.wrapper}>
                 <div className={styles.postDetails}>
                     <div className={styles.authorContainer}>
@@ -35,21 +51,24 @@ export default function PostCard() {
                             />
                         </div>
                         <div className={styles.authorName}>
-                            John Doe
+                            {authorData?.name}
                         </div>
                     </div>
 
                     <div>
-                        <h1 className={styles.title}>7 Free tools that will Make You More Productive 2022</h1>
+                        <h1 className={styles.title}>{post.data.title}</h1>
                         <div className={styles.briefing}>
-                            Productivity is a skill that can be learned
+                            {post.data.brief}
                         </div>
                     </div>
                     <div className={styles.detailsContainer}>
                         <span className={styles.articleDetails}>
-                            Jun 15 · 5 min read ·
+                            {new Date(post.data.postedOn).toLocaleString('en-US', {
+                                day: 'numeric',
+                                month: 'short',
+                            })} · {post.data.postLength} ·
                             <span className={styles.category}>
-                                productivity
+                                {post.data.category}
                             </span>
                         </span>
                         <span className={styles.bookmarkContainer}>
@@ -59,7 +78,7 @@ export default function PostCard() {
                 </div>
                 <div className={styles.thumbnailContainer}>
                     <Image
-                        src={logo}
+                        src={`https://res.cloudinary.com/demo/image/fetch/${post.data.bannerImage}`}
                         height={100}
                         width={100}
                     />
