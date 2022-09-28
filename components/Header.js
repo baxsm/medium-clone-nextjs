@@ -2,6 +2,10 @@ import Image from "next/image"
 import { useContext } from "react"
 import { MediumContext } from "../context/MediumContext"
 import Logo from '../static/images/logo.png'
+import Modal from 'react-modal'
+import { Router, useRouter } from "next/router"
+import Link from "next/link"
+import PostModal from "./PostModal"
 
 const styles = {
     wrapper: 'flex justify-center gap-10 p-5 bg-[#FCC017]',
@@ -12,9 +16,29 @@ const styles = {
     accentedButton: 'bg-black text-white py-2 px-4 rounded-full'
 }
 
+Modal.setAppElement('#__next')
+
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        transform: 'translate(-50%, -50%)',
+        backgroundColor: '#fff',
+        padding: 0,
+        border: 'none',
+    },
+    overlay: {
+        backgroundColor: 'rgba(10, 11, 13, 0.75)',
+    }
+}
+
 export default function Header() {
 
     const { currentUser, handleUserAuth } = useContext(MediumContext)
+
+    const router = useRouter()
 
     return (
         <div className={styles.wrapper}>
@@ -32,7 +56,9 @@ export default function Header() {
                         <div className={styles.bannerNav}>
                             <div>Our Story</div>
                             <div>Membership</div>
+                            <Link href='/?addNew=1'>
                             <div className={styles.accentedButton} >Write</div>
+                            </Link>
                             <div className={styles.accentedButton}>Get Unlimited Access</div>
                         </div>
                         : <div className={styles.bannerNav}>
@@ -43,6 +69,13 @@ export default function Header() {
                         </div>
                 }
             </div>
+            <Modal
+                isOpen={router.query.addNew? true: false}
+                onRequestClose={() => router.push('/')}
+                style={customStyles}
+            >
+                <PostModal></PostModal>
+            </Modal>
         </div>
     )
 }

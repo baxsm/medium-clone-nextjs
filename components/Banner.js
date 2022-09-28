@@ -5,7 +5,7 @@ const styles = {
     wrapper: 'h-max-[10rem] flex items-center justify-center bg-[#FCC017] border-y border-black',
     container: 'max-w-7xl flex-1 flex item-center justify-between',
     contentText: 'space-y-5 px-10 flex-[3]',
-    bannerTitle: ' text-[6rem]',
+    bannerTitle: ' text-[6rem] pt-[3rem]',
     bannerHeadline: 'text-2xl',
     accentedButton: 'bg-black text-white py-2 px-4 rounded-full'
 }
