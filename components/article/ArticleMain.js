@@ -9,7 +9,7 @@ import { HiOutlineLink } from 'react-icons/hi'
 import { BiBookmarks } from 'react-icons/bi'
 import { FiMoreHorizontal } from 'react-icons/fi'
 
-export default function ArticleMain() {
+export default function ArticleMain({ post, author }) {
 
     const styles = {
         wrapper: 'flex items-center justify-center flex-[3] border-l border-r',
@@ -38,16 +38,20 @@ export default function ArticleMain() {
                         <div className={styles.authorProfileImageContainer}>
                             <Image
                                 className={styles.image}
-                                src={Logo}
+                                src={`https://res.cloudinary.com/demo/image/fetch/${author?.data?.imageUrl}`}
                                 height={100}
                                 width={100}
                             />
                         </div>
                         <div className={styles.column}>
-                            <div>John Doe</div>
+                            <div>{author?.data?.name}</div>
                             <div className={styles.postDetails}>
                                 <span>
-                                    June 15 - 7 min read -
+                                {new Date(post?.data?.postedOn).toLocaleString('en-US', {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric'
+                            })}{' '}- {post?.data?.postLength} min read -
                                 </span>
                                 <span className={styles.listenButton}>
                                     <AiFillPlayCircle />
@@ -70,24 +74,27 @@ export default function ArticleMain() {
                     <div className={styles.bannerContainer}>
                         <Image
                             className={styles.image}
-                            src={Banner}
+                            src={`https://res.cloudinary.com/demo/image/fetch/${post?.data?.bannerImage}`}
                             height={100}
                             width={100}
                         />
                     </div>
                     <h1 className={styles.title}>
-                        7 Free Tools That Will Make You More Productive In 2022
+                        {post?.data?.title}
                     </h1>
                     <h4 className={styles.subtitle}>
                         <div>
-                            John Doe, June 15, 2022
+                            {author?.data?.name},{' '}
+                            {new Date(post?.data?.postedOn).toLocaleString('en-US', {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric'
+                            })}
                         </div>
-                        <div>Brief: Productivity is a skill that can be learned</div>
+                        <div>{post?.data?.brief}</div>
                     </h4>
                     <div className={styles.articleText}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe repellat similique amet aperiam distinctio quis sunt rem, error minus incidunt eligendi ab nisi dolore dolorum culpa vitae! Debitis, modi cum.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe repellat similique amet aperiam distinctio quis sunt rem, error minus incidunt eligendi ab nisi dolore dolorum culpa vitae! Debitis, modi cum.<br></br>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe repellat similique amet aperiam distinctio quis sunt rem, error minus incidunt eligendi ab nisi dolore dolorum culpa vitae! Debitis, modi cum.
+                        {post?.data?.body}
                     </div>
                 </div>
             </div>

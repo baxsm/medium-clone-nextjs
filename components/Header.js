@@ -1,4 +1,6 @@
 import Image from "next/image"
+import { useContext } from "react"
+import { MediumContext } from "../context/MediumContext"
 import Logo from '../static/images/logo.png'
 
 const styles = {
@@ -11,6 +13,9 @@ const styles = {
 }
 
 export default function Header() {
+
+    const { currentUser, handleUserAuth } = useContext(MediumContext)
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>
@@ -22,12 +27,21 @@ export default function Header() {
                         width={200}
                     />
                 </div>
-                <div className={styles.bannerNav}>
-                    <div>Our Story</div>
-                    <div>Membership</div>
-                    <div>Sign In</div>
-                    <div className={styles.accentedButton}>Get Started</div>
-                </div>
+                {
+                    currentUser ?
+                        <div className={styles.bannerNav}>
+                            <div>Our Story</div>
+                            <div>Membership</div>
+                            <div className={styles.accentedButton} >Write</div>
+                            <div className={styles.accentedButton}>Get Unlimited Access</div>
+                        </div>
+                        : <div className={styles.bannerNav}>
+                            <div>Our Story</div>
+                            <div>Membership</div>
+                            <div onClick={handleUserAuth}>Sign In</div>
+                            <div className={styles.accentedButton}>Get Started</div>
+                        </div>
+                }
             </div>
         </div>
     )

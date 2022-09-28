@@ -31,11 +31,11 @@ export default function PostCard({ post }) {
     useEffect(() => {
         const getAuthorData = async () => {
             setAuthorData(
-                await getDoc(doc(db, 'users', post.data.author))
+                (await getDoc(doc(db, 'users', post.data.author))).data()
             )
         }
         getAuthorData()
-    }, [post])
+    }, [])
 
     return (
         <Link href={`/post/${post.id}`}>
@@ -44,7 +44,7 @@ export default function PostCard({ post }) {
                     <div className={styles.authorContainer}>
                         <div className={styles.authorImageContainer}>
                             <Image
-                                src={logo}
+                                src={`https://res.cloudinary.com/demo/image/fetch/${authorData?.imageUrl}`}
                                 className={styles.authorImage}
                                 width={40}
                                 height={40}
