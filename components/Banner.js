@@ -25,6 +25,7 @@ export default function Banner() {
                     src={bannerImg}
                     width={500}
                     height={400}
+                    alt={"banner image"}
                 />
             </div>
         </div>

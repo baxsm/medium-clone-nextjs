@@ -1,6 +1,6 @@
 import Article from "../../layout/Article"
 
-export default function () {
+export default function postId() {
   return (
     <Article></Article>
   )
