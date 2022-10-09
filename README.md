@@ -1,5 +1,2 @@
-```bash
-npm run dev
-# or
-yarn dev
-```
+# Medium Clone
+Live - https://medium-clone-nextjs-baxsm.vercel.app/
